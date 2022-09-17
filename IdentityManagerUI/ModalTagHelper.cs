@@ -47,7 +47,7 @@ namespace IdentityManagerUI
                 <div class='modal-content'>
                     <div class='modal-header'>
                         <h4 class='modal-title' id='Label_{context.UniqueId}'>{Title}</h4>
-                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+                        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                     </div>";
             output.Content.AppendHtmlLine("\n" + template);
 
@@ -92,7 +92,7 @@ namespace IdentityManagerUI
             var footerContent = new DefaultTagHelperContent();
             footerContent.AppendHtml(childContent);
             if (DismissText != null)
-                footerContent.AppendFormat("<button type='button' class='btn btn-default' data-dismiss='modal'>{0}</button>\n", DismissText);
+                footerContent.AppendFormat("<button type='button' class='btn btn-default' data-bs-dismiss='modal'>{0}</button>\n", DismissText);
 
             modalContext.Footer = footerContent;
             output.SuppressOutput();

@@ -21,7 +21,7 @@ namespace IdentityManagerUI.Areas.IdentityManager.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly ILogger _logger;
-        private readonly Dictionary<string, string> _roles;
+        private readonly Dictionary<Guid, string> _roles;
         private readonly Dictionary<string, string> _claimTypes;
 
         public HomeController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, ILogger<HomeController> logger)

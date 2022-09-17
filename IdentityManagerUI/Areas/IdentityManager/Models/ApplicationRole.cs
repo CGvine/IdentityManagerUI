@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace IdentityManagerUI.Models
 {
-    public class ApplicationRole : IdentityRole
+    public class ApplicationRole : IdentityRole<Guid>
     {
         public ApplicationRole() { }
 
         public ApplicationRole(string roleName)
             : base(roleName) { }
 
-        public virtual ICollection<IdentityRoleClaim<string>> Claims { get; set; }
+        public virtual ICollection<IdentityRoleClaim<Guid>> Claims { get; set; }
     }
 }

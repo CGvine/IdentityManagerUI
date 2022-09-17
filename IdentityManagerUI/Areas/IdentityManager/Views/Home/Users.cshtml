@@ -1,16 +1,20 @@
 @{
     ViewData["Title"] = "Users Page";
+    var pathBase = Context.Request.PathBase.ToString();
+    if (pathBase == "/"){
+        pathBase = string.Empty;
+    }
 }
 
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" />
-<link rel="stylesheet" href="//cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css" />
-<link rel="stylesheet" href="//cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.4.0/css/select.bootstrap5.min.css" />
 
 <h2>User List</h2>
 
 <div class="row">
     <div class="col-md-12">
-        <table id="usersTable" class="table table-striped table-bordered" data-processing="true" data-server-side="true" data-ajax="/api/UserList">
+        <table id="usersTable" class="table table-striped table-bordered" data-processing="true" data-server-side="true" data-ajax="@(pathBase)/api/UserList">
             <thead>
                 <tr>
                     <th data-data="id">Id</th>
@@ -27,7 +31,7 @@
 
 <modal id="userModal" title="Add User">
     <modal-body>
-        <form id="userForm" data-ajax="true" data-ajax-method="POST" data-ajax-url="/api/CreateUser" data-ajax-success="userDone" data-ajax-failure="userFail">
+        <form id="userForm" data-ajax="true" data-ajax-method="POST" data-ajax-url="@(pathBase)/api/CreateUser" data-ajax-success="userDone" data-ajax-failure="userFail">
             <div id="userError" class="alert alert-danger" role="alert"></div>
 
             <div class="form-group">
@@ -52,25 +56,25 @@
 
 <modal id="editModal" title="Edit User" size="Large">
     <modal-body>
-        <form id="editForm" data-ajax="true" data-ajax-method="POST" data-ajax-url="/api/UpdateUser" data-ajax-success="editDone" data-ajax-failure="editFail">
+        <form id="editForm" data-ajax="true" data-ajax-method="POST" data-ajax-url="@(pathBase)/api/UpdateUser" data-ajax-success="editDone" data-ajax-failure="editFail">
             <div id="editError" class="alert alert-danger" role="alert"></div>
 
             <ul id="tabs" class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#user">User</a>
+                    <button class="nav-link active" id="user-tab" data-bs-toggle="tab" data-bs-target="#user" type="button" role="tab" aria-controls="user" aria-selected="true">User</button>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#roles">Roles</a>
+                    <button class="nav-link" id="roles-tab" data-bs-toggle="tab" data-bs-target="#roles" type="button" role="tab" aria-controls="roles" aria-selected="false">Roles</button>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#claims">Claims</a>
+                 <li class="nav-item">
+                    <button class="nav-link" id="claims-tab" data-bs-toggle="tab" data-bs-target="#claims" type="button" role="tab" aria-controls="claims" aria-selected="false">Claims</button>
                 </li>
             </ul>
 
             <br />
 
             <div class="tab-content">
-                <div id="user" class="tab-pane active">
+                <div id="user" class="tab-pane active" role="tabpanel">
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input name="email" type="email" class="form-control" required />
@@ -79,7 +83,7 @@
                         <input name="id" type="hidden" />
                     </div>
                 </div>
-                <div id="roles" class="tab-pane">
+                <div id="roles" class="tab-pane" role="tabpanel">
                     <div class="form-group">
                         @foreach (var role in ViewBag.Roles)
                         {
@@ -89,7 +93,7 @@
                         }
                     </div>
                 </div>
-                <div id="claims" class="tab-pane">
+                <div id="claims" class="tab-pane" role="tabpanel">
                     <table id="claimsTable" class="table table-sm">
                         <tbody>
                             <tr>
@@ -121,7 +125,7 @@
 
 <modal id="pwdModal" title="Reset Password">
     <modal-body>
-        <form id="pwdForm" data-ajax="true" data-ajax-method="POST" data-ajax-url="/api/ResetPassword" data-ajax-success="pwdDone" data-ajax-failure="pwdFail">
+        <form id="pwdForm" data-ajax="true" data-ajax-method="POST" data-ajax-url="@(pathBase)/api/ResetPassword" data-ajax-success="pwdDone" data-ajax-failure="pwdFail">
             <div id="pwdError" class="alert alert-danger" role="alert"></div>
 
             <div class="form-group">
@@ -139,11 +143,12 @@
 </modal>
 
 @section Scripts {
-    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="//cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-    <script src="//cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
-    <script src="//cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
-    <script src="//ajax.aspnetcdn.com/ajax/jquery.unobtrusive-ajax/3.2.5/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
+    <script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.unobtrusive-ajax/3.2.5/jquery.unobtrusive-ajax.min.js"></script>
 
     <script>
         $(function () {
@@ -156,7 +161,7 @@
                         action: function (e, dt, button, config) {
                             $('#userError').hide();
                             $('#userForm').trigger('reset');
-                            $('#userModal').modal({ backdrop: 'static' });
+                            $('#userModal').modal('show', { backdrop: 'static' });
                         }
                     },
                     {
@@ -178,11 +183,11 @@
                             });
 
                             $.each(data.claims, function (index, value) {
-                                $('#claimsTable tbody').append('<tr><td data-field="key">' + value.Key + '</td>' +
-                                    '<td data-field="value">' + value.Value + '</td><td><a class="removeClaim" href="#">Remove</a></td></tr>');
+                                $('#claimsTable tbody').append('<tr><td data-field="key">' + value.key + '</td>' +
+                                    '<td data-field="value">' + value.value + '</td><td><a class="removeClaim" href="#">Remove</a></td></tr>');
                             });
 
-                            $('#editModal').modal({ backdrop: 'static' });
+                            $('#editModal').modal('show', { backdrop: 'static' });
                         }
                     },
                     {
@@ -194,7 +199,7 @@
 
                                 $.ajax({
                                     type: 'DELETE',
-                                    url: '/api/DeleteUser',
+                                    url: '@(pathBase)/api/DeleteUser',
                                     data: { id: data.id }
                                 })
                                     .done(delDone)
@@ -210,7 +215,7 @@
                             $('#pwdError').hide();
                             $('#pwdForm').trigger('reset');
                             $('#pwdForm input[name=id]').val(data.id);
-                            $('#pwdModal').modal({ backdrop: 'static' });
+                            $('#pwdModal').modal('show', { backdrop: 'static' });
                         }
                     }
                 ],
