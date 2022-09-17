@@ -115,7 +115,7 @@
                         action: function (e, dt, button, config) {
                             $('#roleError').hide();
                             $('#roleForm').trigger('reset');
-                            $('#roleModal').modal('show', { backdrop: 'static' });
+                            $('#roleModal').modal('show');
                         }
                     },
                     {
@@ -136,7 +136,7 @@
                                     '<td data-field="value">' + value.value + '</td><td><a class="removeClaim" href="#">Remove</a></td></tr>');
                             });
 
-                            $('#editModal').modal('show', { backdrop: 'static' });
+                            $('#editModal').modal('show');
                         }
                     },
                     {

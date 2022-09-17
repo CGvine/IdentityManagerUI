@@ -36,6 +36,7 @@ namespace IdentityManagerUI
             output.Attributes.SetAttribute("aria-labelledby", $"Label_{context.UniqueId}");
             output.Attributes.SetAttribute("tabindex", "-1");
             output.Attributes.SetAttribute("aria-hidden", "true");
+            output.Attributes.SetAttribute("data-bs-backdrop", "static");
 
             var classNames = "modal fade";
             if (output.Attributes.ContainsName("class"))
