@@ -89,8 +89,10 @@ namespace IdentityManagerUI.Areas.IdentityManager.Controllers
         }
 
         [HttpPost("api/[action]")]
-        public async Task<IActionResult> CreateUser(string userName, string name, string email, string password)
+        public async Task<IActionResult> CreateUser(string email, string password, string name)
         {
+            var userName = email;
+
             try
             {
                 var user = new ApplicationUser() { Email = email, UserName = userName };
@@ -125,6 +127,7 @@ namespace IdentityManagerUI.Areas.IdentityManager.Controllers
                     return NotFound("User not found.");
 
                 user.Email = email;
+                user.UserName = email;
                 user.LockoutEnd = locked ? DateTimeOffset.MaxValue : default(DateTimeOffset?);
 
                 var result = await _userManager.UpdateAsync(user);
